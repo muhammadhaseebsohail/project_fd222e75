@@ -1,0 +1,77 @@
+Here is a CSS module with styles that match the component's needs:
+
+```css
+/* LoginForm.module.css */
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  margin: 0 auto;
+}
+
+.input {
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.button {
+  padding: 5px;
+}
+```
+
+And here is the updated LoginForm component using CSS modules:
+
+```jsx
+import React, { useState } from "react";
+import PropTypes from 'prop-types';
+import styles from './LoginForm.module.css';
+
+/**
+ * LoginForm Component
+ * @param {Object} props 
+ * @param {Function} props.handleLogin Function to handle login
+ */
+const LoginForm = ({ handleLogin }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if(username && password) {
+      handleLogin({ username, password });
+    } else {
+      alert('Username and Password are required!');
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <input 
+        type="text" 
+        value={username} 
+        onChange={(e) => setUsername(e.target.value)} 
+        placeholder="Username" 
+        required
+        className={styles.input}
+      />
+      <input 
+        type="password" 
+        value={password} 
+        onChange={(e) => setPassword(e.target.value)} 
+        placeholder="Password" 
+        required
+        className={styles.input}
+      />
+      <button type="submit" className={styles.button}>Login</button>
+    </form>
+  );
+};
+
+LoginForm.propTypes = {
+  handleLogin: PropTypes.func.isRequired,
+};
+
+export default LoginForm;
+```
+
+This LoginForm component is using CSS modules to apply styles. We are importing the styles from the CSS module and then applying them using the className attribute in JSX. The CSS module file name is `LoginForm.module.css`. The component PropTypes is also defined to validate the props data type.
